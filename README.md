@@ -1,2 +1,0 @@
-# benwibking.github.io
-website
