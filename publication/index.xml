@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Publications on Ben Wibking | astronomy</title>
@@ -6,8 +6,8 @@
     <description>Recent content in Publications on Ben Wibking | astronomy</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>&amp;copy; 2019</copyright>
-    <lastBuildDate>Sun, 01 Jan 2017 00:00:00 +1100</lastBuildDate>
+    <copyright>&amp;copy; 2018</copyright>
+    <lastBuildDate>Sun, 01 Jan 2017 00:00:00 -0500</lastBuildDate>
     
 	<atom:link href="https://benwibking.github.io/publication/index.xml" rel="self" type="application/rss+xml" />
     
@@ -15,7 +15,7 @@
     <item>
       <title>Emulating galaxy clustering and galaxy-galaxy lensing into the deeply nonlinear regime: methodology, information, and forecasts</title>
       <link>https://benwibking.github.io/publication/emulator-forecasts/</link>
-      <pubDate>Sat, 25 Aug 2018 00:00:00 +1000</pubDate>
+      <pubDate>Sat, 25 Aug 2018 00:00:00 -0400</pubDate>
       
       <guid>https://benwibking.github.io/publication/emulator-forecasts/</guid>
       <description></description>
@@ -24,7 +24,7 @@
     <item>
       <title>Towards accurate modelling of galaxy clustering on small scales: testing the standard $\Lambda$CDM &#43; halo model</title>
       <link>https://benwibking.github.io/publication/lasdamas/</link>
-      <pubDate>Thu, 19 Apr 2018 00:00:00 +1000</pubDate>
+      <pubDate>Thu, 19 Apr 2018 00:00:00 -0400</pubDate>
       
       <guid>https://benwibking.github.io/publication/lasdamas/</guid>
       <description></description>
@@ -33,7 +33,7 @@
     <item>
       <title>Radiation pressure in galactic discs: stability, turbulence, and winds in the single-scattering limit</title>
       <link>https://benwibking.github.io/publication/single-scattering/</link>
-      <pubDate>Thu, 12 Apr 2018 00:00:00 +1000</pubDate>
+      <pubDate>Thu, 12 Apr 2018 00:00:00 -0400</pubDate>
       
       <guid>https://benwibking.github.io/publication/single-scattering/</guid>
       <description></description>
