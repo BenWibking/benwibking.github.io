@@ -1,0 +1,31 @@
+#!/bin/sh -e
+
+usage() {
+	>&2 printf "usage: %s url [path]\\n" "$(basename "$0")"
+	exit 1
+}
+
+test $# -lt 1 && usage
+
+export SRC="${2:-.}"
+export SHARE="${MKWSTHEMEDIR:-${SRC}/share}"
+export LANG="${LANG:-en_US.UTF-8}"
+
+if ! test -f "${SRC}"/index.upphtml
+then
+	>&2 printf "no index.upphtml file found\\n"
+	exit 1
+fi
+
+script_name=$0
+script_full_path=$(dirname "$0")
+
+for t in "${SRC}"/*.upphtml
+do
+	echo "Making $(basename "${t%.upphtml}".html)"
+	$script_full_path/pp "${SHARE}"/l.upphtml "${t}" "$1" > \
+		"$(basename "${t%.upphtml}".html)"
+done
+
+echo "Making sitemap.xml"
+$script_full_path/pp "${SHARE}"/sitemap.uppxml "$1" > sitemap.xml

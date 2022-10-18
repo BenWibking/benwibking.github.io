@@ -1,0 +1,454 @@
+# `mkws`
+
+A simple static site generator using `sh` as a templating language
+
+## Requirements
+
+We provide binaries for [Linux](//mkws.sh/mkws.tgz) and
+[OpenBSD](//mkws-openbsd.tgz). It can also run on
+[Windows](//www.microsoft.com/windows) via the
+[Windows Subsystem for Linux](
+//learn.microsoft.com/en-us/windows/wsl/about) for other UNIX like
+operating systems, you can build from sources.
+
+## Install `mkws`
+
+### Dependecies
+
+`mkws` depends on [pp](//mkws.sh/pp.html) and [lts](//mkws.sh/lts.html).
+You'll have to install those first before running `mkws`.
+
+On a Linux or BSD machine, in a terminal, download the sources from
+[//mkws.sh/mkws/mkws@5.0.0.tgz] and install the program:
+
+	mkdir -p ~/src/mkws.sh
+	cd ~/src/mkws.sh
+	curl -s //mkws.sh/mkws/mkws@5.0.0.tgz | tar -xzvf -
+	cd mkws
+	make install PREFIX=$HOME
+
+## Generate the Static Site
+
+Create a new directory for your static web site
+
+	mkdir ~/src/example.com
+	cd ~/src/example.com
+
+Download a theme, we'll use the base theme in or example:
+
+	curl -s //t.mkws.sh/base/base@3.1.0.tgz | tar -xzvf -
+
+Create your first template named `index.upphtml`, this is required by
+`mkws`:
+
+	cat <<EOF > index.upphtml
+	<p>
+	#!
+	echo hello, world
+	#!
+	</p>
+	EOF
+
+Run `mkws`:
+
+	mkws //example.com
+
+You just generated your first static site with `mkws`. You will now
+have an `index.html` file in your `.` root directory containing the
+following code:
+
+	<!doctype html>
+	<html lang=en>
+
+	<head>
+
+	<title>My website</title>
+
+	<meta charset=UTF-8>
+	<meta name=viewport content='width=device-width, initial-scale=1'>
+
+	<link rel=icon href=favicon.ico type=image/x-icon>
+	<link rel=stylesheet
+	href=s.css?2020-12-12T18:42:29Z>
+
+	</head>
+
+	<body>
+
+	<p>
+	hello, world
+	</p>
+
+	</body>
+
+	</html>
+
+To create new pages, just add new `*.upphtml` files in the `.` root
+directory, `mkws` automatically scans for them. You can create an
+`aboutus.upphtml` or a `contact.upphtml` file for example to generate
+an `aboutus.html` or a `contact.html` page.
+
+For further customizations you can always modify your
+`./bin/mkws` or `./share/l.upphtml` files, in
+fact, it's recommended.
+
+## Templates
+
+`mkws` uses `*.upphtml` files as templates which are processed via
+[`pp`](//mkws.sh/pp.html), a preprocessor that allows embedding
+[`sh`](
+//pubs.opengroup.org/onlinepubs/9699919799/utilities/sh.html)
+code in files of any type by nesting it inside the `#!\n` token, where
+`\n` is a new line.
+
+As an example, for the following code:
+
+	<ul>
+	#!
+	i=1
+	while test $i -le 10
+	do
+	if test $((i % 2)) -eq 0
+	then
+	#!
+		<li class=even>$i</li>
+	#!
+	else
+	#!
+		<li class=odd>$i</li>
+	#!
+	fi
+	i=$((i + 1))
+	done
+	#!
+	</ul>
+
+`pp` outputs:
+
+	<ul>
+	        <li class=odd>1</li>
+	        <li class=even>2</li>
+	        <li class=odd>3</li>
+	        <li class=even>4</li>
+	        <li class=odd>5</li>
+	        <li class=even>6</li>
+	        <li class=odd>7</li>
+	        <li class=even>8</li>
+	        <li class=odd>9</li>
+	        <li class=even>10</li>
+	</ul>
+
+This means you can script your templates in any way you prefer using
+preferably, standard `UNIX` tools for portability reasons.
+
+## Note
+
+Because [`pp`](//mkws.sh/pp.html) uses
+[`sh`](
+//pubs.opengroup.org/onlinepubs/9699919799/utilities/sh.html)
+internally, double quotes (`"`) must be escaped in templates, so to get
+an actual double quote (`"`) you have to write `\"`.
+
+This isn't a
+problem for `HTML` because [quoting attribute values is
+optional and double quotes and single quotes are
+interchangeable](
+//html.spec.whatwg.org/multipage/syntax.html#attributes-2).
+We recommend not quoting attribute values and using single quotes (`'`)
+in special cases.
+
+So instead of:
+
+	<!doctype html>
+	<html lang="en">
+
+	<title>My website</title>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+you would write:
+
+	<!doctype html>
+	<html lang=en>
+
+	<title>My website</title>
+
+	<meta charset=UTF-8>
+	<meta name=viewport content='width=device-width, initial-scale=1'>
+
+## How to customize `mkws`
+
+Customization is done by editing the template (`*.upp*`) files in your
+`mkws` project, the ones you create yourself in the `.` directory,
+the themes files in `./share`, `./share/l.upphtml`, `./share/s.uppcss`
+and `./share/sitemap.uppxml`. You can also install additional utilities
+in the `./bin` directory to enable new functionality. To customize the
+generation process, copy the `mkws` script to your web site's directory
+and edit in place.
+
+	mkdir -p ~/src/example.com/bin
+	cp ~/bin/mkws ~/src/example.com/bin
+
+Below are a few solutions to common problems.
+
+### How to output in a separate directory
+
+A common practice static site generators use is to output the generated
+files in a separate directory, like `out` or `public`. `mkws` is
+designed to output its files in the current directory, along with the
+sources, it does however have an option to specify to source path. So
+to output in a different directory than the sources one, you could do
+in your `.` directory:
+
+	mkdir htdocs
+	cd htdocs
+	../bin/mkws //example.com ../
+
+However, we do recommend distributing the `.upp*` files so other can
+people can read and learn from your code, and preferably link to them.
+
+### How to preview your website
+
+Some static site generators usually come bundled with an `HTTP` server,
+so you can run something like:
+
+	ssg -p 8080
+
+
+and preview your site. `mkws` doesn't include a server by default,
+you can use any server you prefer, however we do provide a small
+server written in Go: [https.go](//mkws.sh/https/https.go).
+You can either compile the source or download a statically linked
+binary for Linux: [https](//mkws.sh/https/https).
+To install, in your web site's directory, on a Linux machine, in a
+terminal, do:
+
+	curl -so bin/https //mkws.sh/https/https
+	chmod +x bin/https
+	./bin/https
+
+If you prefer compiling the sources:
+
+	curl -so https.go //mkws.sh/https/https.go
+	go build -o bin/https https.go
+	./bin/https
+
+Open [http://127.0.0.1:9000](http://127.0.0.1:9000) in your browser to
+preview your website.
+
+The server runs on port `9000` by default and uses the current directory
+as its root directory. It outputs a log to `stdout` in
+[Common Log Format](//en.wikipedia.org/wiki/Common_Log_Format).
+
+### How to live reload
+
+A nice feature when developing a web site, is to have the static site
+generator run whenever a source files has changed and reload the
+current page in the browser.
+
+Assuming you installed our web server following the previous
+instructions, the recommended way to do this with `mkws` is to either
+install or compile [entr](//eradman.com/entrproject/), get
+[live.js](//livejs.com/), in your web site's directory, do:
+
+	curl -so l.js //livejs.com/live.js
+
+Edit `share/l.upphtml` by adding:
+
+	#!
+	if test "$DEV" -eq 1
+	then
+	#!
+	<script src=/l.js></script>
+	#!
+	fi
+	#!
+
+above the closing `</body>` tag.
+
+Also:
+
+	cat <<EOF > bin/d
+		#!/bin/sh -e
+
+		export DEV=${DEV:-1}
+
+		./bin/https &
+
+		(
+		echo ./bin/mkws
+		find . -type f -name '*.upp*'
+		) | entr sh -c 'bin/mkws //example.com'
+	EOF
+	chmod +x bin/d
+
+Run the development script:
+
+	./bin/d
+
+And open [http://127.0.0.1:9000](http://127.0.0.1:9000) in your browser.
+
+### How to add a navigation menu
+
+In order to add a navigation menu to your website, all you have to do
+is edit the `./share/l.upphtml` file and add your navigation code there.
+Open up `./share/l.upphtml` in your favorite text editor and add the
+following lines right below the `body` tag:
+
+	<header>
+		<nav>
+			<ul>
+				<li><a href=/>Home</a>
+				<li><a href=docs.html>Docs</a>
+				<li><a href=src.html>Sources</a>
+			</ul>
+		</nav>
+	</header>
+
+Edit to match your website.
+
+Then, regenerate your site using the `mkws` command:
+
+	./bin/mkws //example.com
+
+### How to add custom titles (or `meta` tags) for each page
+
+As you can see, using `./share/l.upphtml` to generate all our pages,
+means we have only one `title` tag for each page, hence all of our
+generated pages will have the same title. If we would prefer specific
+titles for each page, we would have to edit `./share/l.upphtml` like in
+the following example:
+
+	<head>
+	#!
+	case "$1" in
+	./index.upphtml)
+	#!
+	<title>My Website</title>
+	<meta name=description content='Latest news about my website'>
+	#!
+	;;
+	./docs.upphtml)
+	#!
+	<title>Documentation</title>
+	<meta name=description content='Documentation for my website'>
+	#!
+	;;
+	./src.upphtml)
+	#!
+	<title>Sources</title>
+	<meta name=description content='Sources for my website'>
+	#!
+	;;
+	esac
+	#!
+	</head>
+
+Edit to match your website.
+
+Then, regenerate your site using the `mkws` command:
+
+	./bin/mkws //example.com
+
+### How to render `Markdown`
+
+Rendering `Markdown` is not at hard at all. Our favorite CLI tool for
+rendering `Markdown` is [`smu`](//github.com/Gottox/smu). You'll
+have to download it and install it on your system either via source or
+your operating systems's package manager. In order to use it, just add:
+
+	#!
+		smu <file>
+	#!
+
+to any of your `*.upphtml` files or create a new `*.upphtml` files
+containing just the above code. Other `Markdown` renderers include
+[cmark](//github.com/commonmark/cmark),
+[lowdown](//github.com/kristapsdz/lowdown)
+[discount](//github.com/Orc/discount).
+
+Future versions of `mkws` may allow rendering `Markdown` directly from
+source, without creating an extra `*.upphtml` file.
+
+## File Hierarchy
+
+A typical `mkws` project has the following file structure:
+
+	.
+	|-- bin
+	|   |-- lmt
+	|   |-- mkws
+	|   `-- pp
+	`-- share
+	    |-- l.upphtml
+	    |-- man
+	    |   `-- man1
+	    |       |-- lmt.1
+	    |       |-- mkws.1
+	    |       `-- pp.1
+	    |-- s.uppcss
+	    `-- sitemap.uppxml
+
+* `.`
+The root directory, it holds the template files and other generated
+files, including `*.html`, `*.css`, `*.js` and `sitemap.xml` files.
+	* `./bin`
+	Holds the static site generator's binaries, they're used to
+	generate the static site.
+		* `./bin/lmt`
+		Small utility part of [`lts`](//mkws.sh/lts.html) for
+		printing a file's last modification time used to
+		generate timestamps.
+		* `./bin/mkws`
+		The _main_ script, the actual static site generator, when
+		called from the command line via `./bin/mkws <url>`, it
+		scans the `.` root directory for `*.upptml` files, `mkws`'s
+		template files, preprocesses them via
+		[`pp`](//mkws.sh/pp.html) and renders them inside the
+		`share/l.upphtml` layout file outputing an `HTML` file for
+		each one. `index.upphtml` is transformed to `index.html`,
+		`docs.upphtml` is transformed to `docs.html`, etc. It also
+		creates the main `CSS` file, `s.css` from `share/s.uppcss`
+		and the `sitemap.xml` file from `share/sitemap.uppxml`.
+		* `./bin/pp`
+		The [`pp`](//mkws.sh/pp.html) preprocessor, it allows
+		nesting `sh` code in any text file. It it used by the _main_
+		`./bin/mkws` script to preprocess any `.upp*` file.
+	* `./share`
+	Holds any files that are shared between different components of
+	the static site generator.
+		* `./share/l.upphtml`
+		The main layout file, it holds the common parts of your
+		website. Elements like `html`, `body`, `head` are located
+		here. The standard layout file found in the archive, which
+		is also part of the `base` theme is:
+
+	          <!doctype html>
+	          <html lang=${LANG%%_*}>
+
+	          <title>My website</title>
+
+	          <meta charset=${LANG##*.}>
+	          <meta name=viewport
+	          content='width=device-width, initial-scale=1'>
+
+	          <style>
+	          #!
+	          pp "$share"/s.uppcss
+	          #!
+	          </style>
+
+	          #!
+	          pp "$1"
+	          #!
+
+		* `./share/man`
+		`man` pages
+		* `./share/s.uppcss`
+		`CSS` template. It's also processed via
+		[`pp`](//mkws.sh/pp.html) so it's scriptable via `sh`
+		code. It is inlined in `HTML` files via the
+		`share/l.upphtml` file.
+		* `./share/sitemap.uppxml`
+		`sitemap.xml` template.

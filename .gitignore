@@ -1,0 +1,8 @@
+bin/lts/lat
+bin/lts/lat.o
+bin/lts/lct
+bin/lts/lct.o
+bin/lts/lmt
+bin/lts/lmt.o
+bin/pp
+bin/pp.o
