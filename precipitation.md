@@ -15,6 +15,7 @@ Precipitation of cold gas due to thermal instability in both galaxy clusters and
 ### Compressive driving visualization
 
 This movie shows isosurfaces of density contrast drho/rho for driven compressive turbulence for tc/tff ~ 0.4 and a driving amplitude normalized to produce a turbulent Mach number ~ 0.3.
+[[MP4 download]](https://github.com/BenWibking/benwibking.github.io/releases/download/2024.10.04/compressive_500Myr_highcadence_small-9615_watermark.mp4)
 
 <div style="padding:100% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1016248129?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Compressive driven turbulence in a stratified medium"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
 <br /><br />
@@ -22,6 +23,7 @@ This movie shows isosurfaces of density contrast drho/rho for driven compressive
 ### Solenoidal driving visualization
 
 This movie shows isosurfaces of density contrast drho/rho for driven solenoidal turbulence for tc/tff ~ 0.4 and a driving amplitude normalized to produce a turbulent Mach number ~ 0.3.
+[[MP4 download]](https://github.com/BenWibking/benwibking.github.io/releases/download/2024.10.04/solenoidal_500Myr_highcadence_small-9603_watermark.mp4)
 
 <div style="padding:100% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1016250199?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Solenoidal driven turbulence in a stratified medium"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
 <br /><br />
@@ -29,6 +31,7 @@ This movie shows isosurfaces of density contrast drho/rho for driven solenoidal 
 ### Vertical driving visualization
 
 This movie shows isosurfaces of density contrast drho/rho for driven vertical turbulence for tc/tff ~ 0.4 and a driving amplitude normalized to produce a turbulent Mach number ~ 0.3.
+[[MP4 download]](https://github.com/BenWibking/benwibking.github.io/releases/download/2024.10.04/vertical_500Myr_highcadence_small-9626_watermark.mp4)
 
 <div style="padding:100% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1016250871?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Vertical driven turbulence in a stratified medium"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
 <br /><br />
