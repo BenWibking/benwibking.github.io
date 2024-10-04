@@ -1,0 +1,5 @@
+<div id="content">
+#!
+	cmark --unsafe precipitation.md
+#!
+</div>

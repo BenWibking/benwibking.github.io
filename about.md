@@ -37,4 +37,9 @@ I am the author of the [Quokka](https://github.com/BenWibking/quokka) radiation 
 
 My previous work in cosmology used Gaussian Process-based emulators of simulations of structure formation to infer cosmological parameters from galaxy-shear cross-correlations on nonperturbative scales using galaxies from the Baryon Oscillation Spectroscopic Survey (BOSS).
 
+# Research
+
+## Precipitation in galactic atmospheres
+I have investigated stratified thermal instability in the ICM/CGM to see under what conditions hot gas precipitates, sinks, and accretes on the AGN that heats and self-regulates the galaxy cluster or group atmosphere [[Read more...]](precipitation.html)
+
 </div>
